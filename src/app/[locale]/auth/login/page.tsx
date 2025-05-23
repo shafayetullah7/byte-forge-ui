@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -20,7 +21,9 @@ const LoginPage = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({ resolver: zodResolver(loginSchema) });
 
-  const onSubmit = (data: LoginFormValues) => {
+  const onSubmit = async (data: LoginFormValues) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     console.log('✅ Valid data:', data);
     // Perform login logic here
   };
@@ -54,7 +57,7 @@ const LoginPage = () => {
               {...register('email')}
               className={`appearance-none relative block w-full px-3 py-2 border ${
                 errors.email ? 'border-red-300' : 'border-gray-300'
-              } placeholder-gray-500 primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm`}
+              } placeholder-gray-500 primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
               placeholder="you@example.com"
             />
             {errors.email && (
@@ -78,7 +81,7 @@ const LoginPage = () => {
               {...register('password')}
               className={`appearance-none relative block w-full px-3 py-2 border ${
                 errors.password ? 'border-red-300' : 'border-gray-300'
-              } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm`}
+              } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
               placeholder="Enter password"
             />
             {errors.password && (
@@ -119,11 +122,21 @@ const LoginPage = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
-              isSubmitting ? 'bg-green-400' : 'bg-green-600 hover:bg-green-700'
-            } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors`}
+            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white  ${
+              isSubmitting
+                ? 'bg-[var(--primary-light)]'
+                : 'bg-[var(--primary)] hover:bg-[var(--primary-deep)] '
+            } focus:outline-none  transition-colors`}
           >
-            {isSubmitting ? 'Signing in' : 'Sign in'}
+            {isSubmitting ? (
+              <>
+                {' '}
+                <Loader2 className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" />
+                Signing in
+              </>
+            ) : (
+              'Sign in'
+            )}
           </button>
         </div>
       </form>

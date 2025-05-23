@@ -1,0 +1,38 @@
+{
+  "user": {
+    "auth": {
+      "registration": {
+        "title": "Create your account",
+        "subtitle": "Join our community today",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "passwordRequirementsTitle": "Password must contain:",
+        "passwordRequirements": {
+          "uppercase": "1 uppercase letter",
+          "lowercase": "1 lowercase letter",
+          "number": "1 number",
+          "specialChar": "1 special character"
+        },
+        "termsAgreement": "I agree to the",
+        "termsAndConditions": "Terms and Conditions",
+        "register": "Register",
+        "creatingAccount": "Creating account...",
+        "placeholders": {
+          "firstName": "John",
+          "lastName": "Doe",
+          "username": "john_doe123",
+          "email": "you@example.com",
+          "password": "Enter password"
+        }
+      }
+    }
+  },
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  }
+}
+  

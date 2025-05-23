@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -49,15 +50,14 @@ const RegisterPage = () => {
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormValues>({ resolver: zodResolver(registerSchema) });
 
-  const onSubmit = (data: RegisterFormValues) => {
+  const onSubmit = async (data: RegisterFormValues) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     console.log('✅ Valid data:', data);
     // Perform registration logic here
   };
 
   const labelClass = 'block text-sm font-medium primary-text-3 mb-1';
-  const inputClass = `appearance-none relative block w-full px-3 py-2 border ${
-    errors.lastName ? 'border-red-300' : 'border-gray-300'
-  } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm`;
 
   return (
     <div className="w-full space-y-8 p-8 rounded-xl">
@@ -83,7 +83,9 @@ const RegisterPage = () => {
                 id="firstName"
                 type="text"
                 {...register('firstName')}
-                className={inputClass}
+                className={`appearance-none relative block w-full px-3 py-2 border ${
+                  errors.firstName ? 'border-red-300' : 'border-gray-300'
+                } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
                 placeholder="John"
               />
               {errors.firstName && (
@@ -101,7 +103,9 @@ const RegisterPage = () => {
                 id="lastName"
                 type="text"
                 {...register('lastName')}
-                className={inputClass}
+                className={`appearance-none relative block w-full px-3 py-2 border ${
+                  errors.lastName ? 'border-red-300' : 'border-gray-300'
+                } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
                 placeholder="Doe"
               />
               {errors.lastName && (
@@ -120,7 +124,9 @@ const RegisterPage = () => {
               id="userName"
               type="text"
               {...register('userName')}
-              className={inputClass}
+              className={`appearance-none relative block w-full px-3 py-2 border ${
+                errors.userName ? 'border-red-300' : 'border-gray-300'
+              } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
               placeholder="john_doe123"
             />
             {errors.userName && (
@@ -138,7 +144,9 @@ const RegisterPage = () => {
               id="email"
               type="email"
               {...register('email')}
-              className={inputClass}
+              className={`appearance-none relative block w-full px-3 py-2 border ${
+                errors.email ? 'border-red-300' : 'border-gray-300'
+              } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
               placeholder="you@example.com"
             />
             {errors.email && (
@@ -156,7 +164,9 @@ const RegisterPage = () => {
               id="password"
               type="password"
               {...register('password')}
-              className={inputClass}
+              className={`appearance-none relative block w-full px-3 py-2 border ${
+                errors.password ? 'border-red-300' : 'border-gray-300'
+              } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
               placeholder="Enter password"
             />
             {errors.password && (
@@ -188,7 +198,7 @@ const RegisterPage = () => {
             I agree to the{' '}
             <a
               href="#"
-              className="font-medium text-green-600 hover:text-green-500"
+              className="font-medium text-[var(--link)] hover:text-[var(--link-hover)]"
             >
               Terms and Conditions
             </a>
@@ -200,31 +210,14 @@ const RegisterPage = () => {
             type="submit"
             disabled={isSubmitting}
             className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
-              isSubmitting ? 'bg-green-400' : 'bg-green-600 hover:bg-green-700'
-            } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors`}
+              isSubmitting
+                ? 'bg-[var(--primary-light)]'
+                : 'bg-[var(--primary)] hover:bg-[var(--primary-deep)] '
+            } focus:outline-none transition-colors`}
           >
             {isSubmitting ? (
               <>
-                <svg
-                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
+                <Loader2 className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" />
                 Creating account...
               </>
             ) : (
@@ -233,18 +226,6 @@ const RegisterPage = () => {
           </button>
         </div>
       </form>
-
-      <div className="text-center text-sm">
-        <p className="text-gray-600">
-          Already have an account?{' '}
-          <a
-            href="/login"
-            className="font-medium text-green-600 hover:text-green-500"
-          >
-            Sign in
-          </a>
-        </p>
-      </div>
     </div>
   );
 };

@@ -20,13 +20,13 @@ const AuthLayout = ({ children }: ChildrenProp) => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center py-2">
-      <div className="w-full max-h-full scroll-auto max-w-lg border border-green-600 rounded-xl overflow-hidden">
+      <div className="w-full max-h-full scroll-auto max-w-lg border border-[var(--primary)] rounded-xl overflow-hidden">
         <nav className="flex">
           {navLinks.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
-              className={`w-full block text-center py-2 ${pathname === pathPrefix + href ? ' bg-green-600 text-white' : ''}`}
+              className={`w-full block text-center py-2 ${pathname === pathPrefix + href ? ' bg-[var(--primary)] text-white' : ''}`}
             >
               {label}
             </Link>

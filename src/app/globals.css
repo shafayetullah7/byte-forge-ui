@@ -1,41 +1,92 @@
 @import 'tailwindcss';
 
-/* Default (light) theme */
+/* ========== LIGHT THEME (Nature-Inspired) ========== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base Colors */
+  --background: #f8f5f0;
+  /* Warm parchment-like background */
+  --foreground: #2c2c2c;
+  /* Charcoal for primary text */
 
-  --text-1: #171717;
-  /* primary text/ Headings, titles, main body text */
-  --text-2: #4b4b4b;
-  /* secondary text / Subheadings, descriptions, metadata*/
-  --text-3: #737373;
-  /* muted/tertiary / Form labels, timestamps, supporting notes  */
-  --text-4: #a3a3a3;
-  /* captions, placeholders, helper text */
-  --text-5: #d4d4d4;
-  /* subtle, very light,Disabled buttons, icons, subtle separators */
+  /* Greens (Primary Brand Colors) */
+  --primary: #2e8b57;
+  /* Vibrant forest green */
+  --primary-deep: #1f6e45;
+  /* Deep emerald */
+  --primary-light: #3ca46d; /* Slightly lighter green */
+  /* Subtle mint for accents */
+
+  /* Browns (Secondary) */
+  --secondary: #6f4e37;
+  /* Rich walnut brown */
+  --secondary-light: #c4a484;
+  /* Warm sand */
+
+  /* Accents */
+  --accent: #d4a017;
+  /* Golden sap for CTAs */
+
+  /* Text Shades (Earthy Neutrals) */
+  --text-1: #2c2c2c;
+  /* Primary text (charcoal) */
+  --text-2: #4e4e4e;
+  /* Secondary text */
+  --text-3: #707070;
+  /* Tertiary text */
+  --text-4: #9e9e9e;
+  /* Placeholders */
+  --text-5: #d1d1d1;
+  /* Disabled elements */
   --text-6: #ededed;
-  /* ultra-light, use rarely,Legal footnotes, watermark, hidden content */
+  /* Ultra-light (dividers) */
+
+  --link: #1a6f5a;
+  /* Base link */
+  --link-hover: #155c4a;
+  /* Darker green for hover */
+  /* A slightly cooler, readable deep green that stands out on light backgrounds */
 }
 
-/* Dark theme when class="dark" is on <html> */
+/* ========== DARK THEME (Moody & Modern) ========== */
 html.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  /* Base Colors */
+  --background: #121f1a;
+  /* Deep forest green (not pure black) */
+  --foreground: #e0e0e0;
+  /* Soft off-white text */
 
-  --text-1: #ededed;
-  /* primary text/ Headings, titles, main body text */
-  --text-2: #a3a3a3;
-  /* secondary text / Subheadings, descriptions, metadata*/
-  --text-3: #6b6b6b;
-  /* muted/tertiary / Form labels, timestamps, supporting notes  */
-  --text-4: #4b4b4b;
-  /* captions, placeholders, helper text */
-  --text-5: #2e2e2e;
-  /* subtle, very light,Disabled buttons, icons, subtle separators */
-  --text-6: #1a1a1a;
-  /* ultra-light, use rarely,Legal footnotes, watermark, hidden content */
+  --primary: #00a63e; /* vibrant base green */
+  --primary-deep: #00b94a; /* slightly brighter, modern tone */
+  --primary-light: #007f29; /* deeper, muted dark green */
+
+  /* Browns (Warmer for Dark Mode) */
+  --secondary: #8b5d33;
+  /* Amber brown */
+  --secondary-light: #6f4e37;
+
+  /* Accents */
+  --accent: #ffc107;
+  /* Vibrant gold for pop */
+
+  /* Text Shades (Optimized for Dark BG) */
+  --text-1: #e0e0e0;
+  /* Primary text */
+  --text-2: #b5b5b5;
+  /* Secondary */
+  --text-3: #8a8a8a;
+  /* Tertiary */
+  --text-4: #5e5e5e;
+  /* Placeholders */
+  --text-5: #3d3d3d;
+  /* Disabled */
+  --text-6: #1f1f1f;
+  /* Dividers */
+
+  --link: #4fd1a3;
+  /* Base link */
+  --link-hover: #6fe3b7;
+  /* Lighter minty-teal for hover */
+  /* A vibrant mint-teal — good contrast on dark background */
 }
 
 body {
@@ -45,27 +96,167 @@ body {
 }
 
 @layer utilities {
-  .primary-text-1 {
+  /* ========== TEXT COLORS ========== */
+  .text-1 {
     color: var(--text-1);
   }
 
-  .primary-text-2 {
+  .text-2 {
     color: var(--text-2);
   }
 
-  .primary-text-3 {
+  .text-3 {
     color: var(--text-3);
   }
 
-  .primary-text-4 {
+  .text-4 {
     color: var(--text-4);
   }
 
-  .primary-text-5 {
+  .text-5 {
     color: var(--text-5);
   }
 
-  .primary-text-6 {
+  .text-6 {
     color: var(--text-6);
+  }
+
+  /* ========== SPECIAL UTILITIES ========== */
+  .text-on-primary {
+    color: white;
+  }
+
+  /* For text on green/brown backgrounds */
+  .text-on-dark {
+    color: var(--foreground);
+  }
+
+  /* For dark mode text on light bgs */
+
+  /* ========== COLORS ========== */
+  .primary {
+    color: var(--primary);
+  }
+
+  .primary-deep {
+    color: var(--primary-deep);
+  }
+
+  .primary-light {
+    color: var(--primary-light);
+  }
+
+  /* ========== BACKGROUND COLORS ========== */
+  .bg-primary {
+    background-color: var(--primary);
+  }
+
+  .bg-primary-deep {
+    background-color: var(--primary-deep);
+  }
+
+  .bg-primary-light {
+    background-color: var(--primary-light);
+  }
+
+  .bg-secondary {
+    background-color: var(--secondary);
+  }
+
+  .bg-secondary-light {
+    background-color: var(--secondary-light);
+  }
+
+  .bg-accent {
+    background-color: var(--accent);
+  }
+
+  .bg-base {
+    background-color: var(--background);
+  }
+
+  .bg-foreground {
+    background-color: var(--foreground);
+  }
+
+  /* ========== BORDER COLORS ========== */
+  .border-primary {
+    border-color: var(--primary);
+  }
+
+  .border-primary-deep {
+    border-color: var(--primary-deep);
+  }
+
+  .border-primary-light {
+    border-color: var(--primary-light);
+  }
+
+  .border-secondary {
+    border-color: var(--secondary);
+  }
+
+  .border-secondary-light {
+    border-color: var(--secondary-light);
+  }
+
+  .border-accent {
+    border-color: var(--accent);
+  }
+
+  .border-text-4 {
+    border-color: var(--text-4);
+  }
+
+  /* ========== INTERACTIVE STATES ========== */
+  /* .hover\:bg-primary-deep:hover {
+    background-color: var(--primary-deep);
+  }
+
+  .hover\:text-accent:hover {
+    color: var(--accent);
+  } */
+
+  /* Shadows (modern, subtle) */
+  .shadow-sm {
+    box-shadow: 0 1px 2px rgba(var(--text-1-rgb), 0.05);
+  }
+
+  .shadow-md {
+    box-shadow: 0 4px 6px rgba(var(--text-1-rgb), 0.1);
+  }
+
+  .shadow-lg {
+    box-shadow: 0 10px 15px rgba(var(--text-1-rgb), 0.15);
+  }
+
+  .ring-primary {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  .ring-primary-deep {
+    outline: 2px solid var(--primary-deep);
+    outline-offset: 2px;
+  }
+
+  .ring-primary-light {
+    outline: 2px solid var(--primary-light);
+    outline-offset: 2px;
+  }
+
+  .focus-ring-primary:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  .focus\:ring-primary-deep:focus {
+    outline: 2px solid var(--primary-deep);
+    outline-offset: 2px;
+  }
+
+  .focus\:ring-primary-light:focus {
+    outline: 2px solid var(--primary-light);
+    outline-offset: 2px;
   }
 }
