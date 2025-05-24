@@ -2,48 +2,113 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const registerSchema = z.object({
-  firstName: z
-    .string()
-    .min(1, 'First name cannot be empty')
-    .max(50, 'First name cannot exceed 50 characters')
-    .regex(/^[a-zA-Z]+$/, 'First name can only contain letters'),
-  lastName: z
-    .string()
-    .min(1, 'Last name cannot be empty')
-    .max(50, 'Last name cannot exceed 50 characters')
-    .regex(/^[a-zA-Z]+$/, 'Last name can only contain letters'),
-  userName: z
-    .string()
-    .min(3, 'Username must be at least 3 characters')
-    .max(50, 'Username cannot exceed 50 characters')
-    .regex(
-      /^[a-z0-9_]+$/,
-      'Username can only contain lowercase letters, numbers, and underscores'
-    ),
-  email: z
-    .string()
-    .email('Invalid email format')
-    .max(255, 'Email cannot exceed 255 characters'),
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters')
-    .max(255, 'Password cannot exceed 255 characters')
-    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
-    .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
-    .regex(/[0-9]/, 'Password must contain at least one number')
-    .regex(
-      /[^A-Za-z0-9]/,
-      'Password must contain at least one special character'
-    ),
-});
-
-type RegisterFormValues = z.infer<typeof registerSchema>;
-
 const RegisterPage = () => {
+  const t = useTranslations('user.auth.registration');
+  const text = {
+    header: {
+      title: t('title'),
+      subtitle: t('subtitle'),
+    },
+    form: {
+      labels: {
+        firstName: t('firstName'),
+        lastName: t('lastName'),
+        username: t('username'),
+        email: t('email'),
+        password: t('password'),
+      },
+      placeholders: {
+        firstName: t('placeholders.firstName'),
+        lastName: t('placeholders.lastName'),
+        username: t('placeholders.username'),
+        email: t('placeholders.email'),
+        password: t('placeholders.password'),
+      },
+      passwordRequirements: {
+        title: t('passwordRequirementsTitle'),
+        items: [
+          t('passwordRequirements.uppercase'),
+          t('passwordRequirements.lowercase'),
+          t('passwordRequirements.number'),
+          t('passwordRequirements.specialChar'),
+        ],
+      },
+      terms: {
+        termsAgreement: t('termsAgreement'),
+        termsAndConditions: t('termsAndConditions'),
+      },
+      buttons: {
+        register: t('register'),
+        creatingAccount: t('creatingAccount'),
+      },
+    },
+    errors: {
+      firstName: {
+        required: t('errors.firstName.required'),
+        maxLength: t('errors.firstName.maxLength'),
+        lettersOnly: t('errors.firstName.lettersOnly'),
+      },
+      lastName: {
+        required: t('errors.lastName.required'),
+        maxLength: t('errors.lastName.maxLength'),
+        lettersOnly: t('errors.lastName.lettersOnly'),
+      },
+      userName: {
+        minLength: t('errors.userName.minLength'),
+        maxLength: t('errors.userName.maxLength'),
+        invalidCharacters: t('errors.userName.invalidCharacters'),
+      },
+      email: {
+        invalid: t('errors.email.invalid'),
+        maxLength: t('errors.email.maxLength'),
+      },
+      password: {
+        minLength: t('errors.password.minLength'),
+        maxLength: t('errors.password.maxLength'),
+        uppercase: t('errors.password.uppercase'),
+        lowercase: t('errors.password.lowercase'),
+        number: t('errors.password.number'),
+        specialChar: t('errors.password.specialChar'),
+      },
+    },
+  };
+
+  const registerSchema = z.object({
+    firstName: z
+      .string()
+      .min(1, text.errors.firstName.required)
+      .max(50, text.errors.firstName.maxLength)
+      .regex(/^[a-zA-Z]+$/, text.errors.firstName.lettersOnly),
+    lastName: z
+      .string()
+      .min(1, text.errors.lastName.required)
+      .max(50, text.errors.lastName.maxLength)
+      .regex(/^[a-zA-Z]+$/, text.errors.lastName.lettersOnly),
+    userName: z
+      .string()
+      .min(3, text.errors.userName.minLength)
+      .max(50, text.errors.userName.maxLength)
+      .regex(/^[a-z0-9_]+$/, text.errors.userName.invalidCharacters),
+    email: z
+      .string()
+      .email(text.errors.email.invalid)
+      .max(255, text.errors.email.maxLength),
+    password: z
+      .string()
+      .min(8, text.errors.password.minLength)
+      .max(255, text.errors.password.maxLength)
+      .regex(/[A-Z]/, text.errors.password.uppercase)
+      .regex(/[a-z]/, text.errors.password.lowercase)
+      .regex(/[0-9]/, text.errors.password.number)
+      .regex(/[^A-Za-z0-9]/, text.errors.password.specialChar),
+  });
+
+  type RegisterFormValues = z.infer<typeof registerSchema>;
+
   const {
     register,
     handleSubmit,
@@ -63,13 +128,11 @@ const RegisterPage = () => {
     <div className="w-full space-y-8 p-8 rounded-xl">
       <div className="text-center">
         {/* <h2 className="mt-6 text-3xl font-bold">Create your account</h2> */}
-        <h2 className="mt-6 text-3xl font-bold">নতুন অ্যাকাউন্ট তৈরি করুন</h2>
+        <h2 className="mt-6 text-3xl font-bold">{text.header.title}</h2>
         {/* <p className="mt-2 text-sm primary-text-3">
           Join our community today
         </p> */}
-        <p className="mt-2 text-sm primary-text-3">
-          আজই আমাদের পরিবারের একজন হয়ে উঠুন
-        </p>
+        <p className="mt-2 text-sm primary-text-3">{text.header.subtitle}</p>
       </div>
 
       <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
@@ -77,7 +140,7 @@ const RegisterPage = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label htmlFor="firstName" className={labelClass}>
-                First Name
+                {text.form.labels.firstName}
               </label>
               <input
                 id="firstName"
@@ -86,7 +149,7 @@ const RegisterPage = () => {
                 className={`appearance-none relative block w-full px-3 py-2 border ${
                   errors.firstName ? 'border-red-300' : 'border-gray-300'
                 } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
-                placeholder="John"
+                placeholder={text.form.placeholders.firstName}
               />
               {errors.firstName && (
                 <p className="mt-1 text-sm text-red-600">
@@ -97,7 +160,7 @@ const RegisterPage = () => {
 
             <div>
               <label htmlFor="lastName" className={labelClass}>
-                Last Name
+                {text.form.labels.lastName}
               </label>
               <input
                 id="lastName"
@@ -106,7 +169,7 @@ const RegisterPage = () => {
                 className={`appearance-none relative block w-full px-3 py-2 border ${
                   errors.lastName ? 'border-red-300' : 'border-gray-300'
                 } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
-                placeholder="Doe"
+                placeholder={text.form.placeholders.lastName}
               />
               {errors.lastName && (
                 <p className="mt-1 text-sm text-red-600">
@@ -118,7 +181,7 @@ const RegisterPage = () => {
 
           <div>
             <label htmlFor="userName" className={labelClass}>
-              Username
+              {text.form.labels.username}
             </label>
             <input
               id="userName"
@@ -127,7 +190,7 @@ const RegisterPage = () => {
               className={`appearance-none relative block w-full px-3 py-2 border ${
                 errors.userName ? 'border-red-300' : 'border-gray-300'
               } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
-              placeholder="john_doe123"
+              placeholder={text.form.placeholders.username}
             />
             {errors.userName && (
               <p className="mt-1 text-sm text-red-600">
@@ -138,7 +201,7 @@ const RegisterPage = () => {
 
           <div>
             <label htmlFor="email" className={labelClass}>
-              Email
+              {text.form.labels.email}
             </label>
             <input
               id="email"
@@ -147,7 +210,7 @@ const RegisterPage = () => {
               className={`appearance-none relative block w-full px-3 py-2 border ${
                 errors.email ? 'border-red-300' : 'border-gray-300'
               } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
-              placeholder="you@example.com"
+              placeholder={text.form.placeholders.email}
             />
             {errors.email && (
               <p className="mt-1 text-sm text-red-600">
@@ -158,7 +221,7 @@ const RegisterPage = () => {
 
           <div>
             <label htmlFor="password" className={labelClass}>
-              Password
+              {text.form.labels.password}
             </label>
             <input
               id="password"
@@ -167,7 +230,7 @@ const RegisterPage = () => {
               className={`appearance-none relative block w-full px-3 py-2 border ${
                 errors.password ? 'border-red-300' : 'border-gray-300'
               } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
-              placeholder="Enter password"
+              placeholder={text.form.placeholders.password}
             />
             {errors.password && (
               <p className="mt-1 text-sm text-red-600">
@@ -175,12 +238,11 @@ const RegisterPage = () => {
               </p>
             )}
             <div className="mt-2 text-xs text-gray-400 dark:text-gray-500">
-              <p>Password must contain:</p>
+              <p>{text.form.passwordRequirements.title}</p>
               <ul className="list-disc list-inside">
-                <li>1 uppercase letter</li>
-                <li>1 lowercase letter</li>
-                <li>1 number</li>
-                <li>1 special character</li>
+                {text.form.passwordRequirements.items.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -195,12 +257,12 @@ const RegisterPage = () => {
             required
           />
           <label htmlFor="terms" className="ml-2 block text-sm primary-text-3">
-            I agree to the{' '}
+            {text.form.terms.termsAgreement}
             <a
               href="#"
               className="font-medium text-[var(--link)] hover:text-[var(--link-hover)]"
             >
-              Terms and Conditions
+              {text.form.terms.termsAndConditions}
             </a>
           </label>
         </div>
@@ -218,10 +280,10 @@ const RegisterPage = () => {
             {isSubmitting ? (
               <>
                 <Loader2 className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" />
-                Creating account...
+                {text.form.buttons.creatingAccount}
               </>
             ) : (
-              'Register'
+              text.form.buttons.register
             )}
           </button>
         </div>

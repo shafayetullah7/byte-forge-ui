@@ -2,33 +2,95 @@
   "user": {
     "auth": {
       "registration": {
-          "title": "নতুন অ্যাকাউন্ট তৈরি করুন",
-          "subtitle": "আজই আমাদের পরিবারের একজন হয়ে উঠুন",
-          "firstName": "প্রথম নাম",
-          "lastName": "শেষ নাম",
-          "username": "ব্যবহারকারীর নাম",
-          "email": "ইমেইল",
-          "password": "পাসওয়ার্ড",
-          "passwordRequirementsTitle": "পাসওয়ার্ডে অবশ্যই থাকতে হবে:",
-          "passwordRequirements": {
-            "uppercase": "১টি বড় হাতের অক্ষর",
-            "lowercase": "১টি ছোট হাতের অক্ষর",
-            "number": "১টি সংখ্যা",
-            "specialChar": "১টি বিশেষ অক্ষর"
+        "title": "নতুন অ্যাকাউন্ট তৈরি করুন",
+        "subtitle": "আজই আমাদের পরিবারের একজন হয়ে উঠুন",
+        "firstName": "প্রথম নাম",
+        "lastName": "শেষ নাম",
+        "username": "ব্যবহারকারীর নাম",
+        "email": "ইমেইল",
+        "password": "পাসওয়ার্ড",
+        "passwordRequirementsTitle": "পাসওয়ার্ডে অবশ্যই থাকতে হবে:",
+        "passwordRequirements": {
+          "uppercase": "১টি বড় হাতের অক্ষর",
+          "lowercase": "১টি ছোট হাতের অক্ষর",
+          "number": "১টি সংখ্যা",
+          "specialChar": "১টি বিশেষ অক্ষর"
+        },
+        "termsAgreement": "আমি সম্মত হচ্ছি ",
+        "termsAndConditions": "শর্তাবলী ও নিয়মাবলী",
+        "register": "রেজিস্টার করুন",
+        "creatingAccount": "অ্যাকাউন্ট তৈরি করা হচ্ছে...",
+        "placeholders": {
+          "firstName": "জন",
+          "lastName": "ডো",
+          "username": "john_doe123",
+          "email": "you@example.com",
+          "password": "পাসওয়ার্ড লিখুন"
+        },
+        "errors": {
+          "firstName": {
+            "required": "প্রথম নাম খালি রাখা যাবে না",
+            "maxLength": "প্রথম নাম ৫০ অক্ষরের বেশি হতে পারবে না",
+            "lettersOnly": "প্রথম নামে শুধুমাত্র অক্ষর থাকতে পারে"
           },
-          "termsAgreement": "আমি সম্মত হচ্ছি",
-          "termsAndConditions": "শর্তাবলী ও নিয়মাবলী",
-          "register": "রেজিস্টার করুন",
-          "creatingAccount": "অ্যাকাউন্ট তৈরি করা হচ্ছে...",
-          "placeholders": {
-            "firstName": "জন",
-            "lastName": "ডো",
-            "username": "john_doe123",
-            "email": "you@example.com",
-            "password": "পাসওয়ার্ড লিখুন"
+          "lastName": {
+            "required": "শেষ নাম খালি রাখা যাবে না",
+            "maxLength": "শেষ নাম ৫০ অক্ষরের বেশি হতে পারবে না",
+            "lettersOnly": "শেষ নামে শুধুমাত্র অক্ষর থাকতে পারে"
+          },
+          "userName": {
+            "minLength": "ব্যবহারকারীর নাম কমপক্ষে ৩ অক্ষর হতে হবে",
+            "maxLength": "ব্যবহারকারীর নাম ৫০ অক্ষরের বেশি হতে পারবে না",
+            "invalidCharacters": "ব্যবহারকারীর নামে শুধুমাত্র ছোট হাতের অক্ষর, সংখ্যা এবং আন্ডারস্কোর থাকতে পারে"
+          },
+          "email": {
+            "invalid": "ইমেইল ফরমেট সঠিক নয়",
+            "maxLength": "ইমেইল ২৫৫ অক্ষরের বেশি হতে পারবে না"
+          },
+          "password": {
+            "minLength": "পাসওয়ার্ড কমপক্ষে ৮ অক্ষর হতে হবে",
+            "maxLength": "পাসওয়ার্ড ২৫৫ অক্ষরের বেশি হতে পারবে না",
+            "uppercase": "পাসওয়ার্ডে কমপক্ষে ১টি বড় হাতের অক্ষর থাকতে হবে",
+            "lowercase": "পাসওয়ার্ডে কমপক্ষে ১টি ছোট হাতের অক্ষর থাকতে হবে",
+            "number": "পাসওয়ার্ডে কমপক্ষে ১টি সংখ্যা থাকতে হবে",
+            "specialChar": "পাসওয়ার্ডে কমপক্ষে ১টি বিশেষ অক্ষর থাকতে হবে"
           }
         }
-        
+      },
+      "login": {
+      "header": {
+        "title": "আবারও স্বাগতম!",
+        "subtitle": "আপনার অ্যাকাউন্টে প্রবেশ করুন"
+      },
+      "form": {
+        "email": {
+          "label": "ইমেইল ঠিকানা",
+          "placeholder": "you@example.com",
+          "errors": {
+            "maxLength": "ইমেইল খুব বড়",
+            "invalid": "সঠিক ইমেইল দিন"
+          }
+        },
+        "password": {
+          "label": "পাসওয়ার্ড",
+          "placeholder": "পাসওয়ার্ড লিখুন",
+          "errors": {
+            "minLength": "পাসওয়ার্ড কমপক্ষে ৮ অক্ষর হতে হবে",
+            "maxLength": "পাসওয়ার্ড খুব বড়"
+          }
+        },
+        "rememberMe": "আমাকে মনে রাখুন",
+        "forgotPassword": "পাসওয়ার্ড ভুলে গেছেন?"
+      },
+      "buttons": {
+        "submit": "প্রবেশ করুন",
+        "submitting": "প্রবেশ করা হচ্ছে..."
+      }
+      },
+      "nav": {
+        "login": "প্রবেশ",
+        "register": "নিবন্ধন"
+      }
     }
   },
   "HomePage": {

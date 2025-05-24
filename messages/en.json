@@ -16,7 +16,7 @@
           "number": "1 number",
           "specialChar": "1 special character"
         },
-        "termsAgreement": "I agree to the",
+        "termsAgreement": "I agree to the ",
         "termsAndConditions": "Terms and Conditions",
         "register": "Register",
         "creatingAccount": "Creating account...",
@@ -26,7 +26,70 @@
           "username": "john_doe123",
           "email": "you@example.com",
           "password": "Enter password"
+        },
+        "errors": {
+          "firstName": {
+            "required": "First name cannot be empty",
+            "maxLength": "First name cannot exceed 50 characters",
+            "lettersOnly": "First name can only contain letters"
+          },
+          "lastName": {
+            "required": "Last name cannot be empty",
+            "maxLength": "Last name cannot exceed 50 characters",
+            "lettersOnly": "Last name can only contain letters"
+          },
+          "userName": {
+            "minLength": "Username must be at least 3 characters",
+            "maxLength": "Username cannot exceed 50 characters",
+            "invalidCharacters": "Username can only contain lowercase letters, numbers, and underscores"
+          },
+          "email": {
+            "invalid": "Invalid email format",
+            "maxLength": "Email cannot exceed 255 characters"
+          },
+          "password": {
+            "minLength": "Password must be at least 8 characters",
+            "maxLength": "Password cannot exceed 255 characters",
+            "uppercase": "Password must contain at least one uppercase letter",
+            "lowercase": "Password must contain at least one lowercase letter",
+            "number": "Password must contain at least one number",
+            "specialChar": "Password must contain at least one special character"
+          }
         }
+      },
+      "login": {
+      "header": {
+        "title": "Welcome back!",
+        "subtitle": "Sign in to your account"
+      },
+      "form": {
+        "email": {
+          "label": "Email address",
+          "placeholder": "you@example.com",
+          "errors": {
+            "maxLength": "Email is too long",
+            "invalid": "Invalid email format"
+          }
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter password",
+          "errors": {
+            "minLength": "Password must be at least 8 characters",
+            "maxLength": "Password is too long"
+          }
+        },
+        "rememberMe": "Remember me",
+        "forgotPassword": "Forgot your password?"
+      },
+      "buttons": {
+        "submit": "Sign in",
+        "submitting": "Signing in..."
+      }
+      },
+      "nav": {
+        "login": "Login",
+        "register": "Register"
       }
     }
   },
@@ -35,4 +98,3 @@
     "about": "Go to the about page"
   }
 }
-  
