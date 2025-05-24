@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
@@ -60,10 +61,27 @@ const LoginPage = () => {
   } = useForm<LoginFormValues>({ resolver: zodResolver(loginSchema) });
 
   const onSubmit = async (data: LoginFormValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
 
     console.log('✅ Valid data:', data);
     // Perform login logic here
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/user/auth/login',
+        data,
+        {
+          withCredentials: true, // Essential for cookies
+        }
+      );
+      console.log('Login successful:', response.data);
+      alert('Logged in!');
+      // Redirect or update auth state (e.g., React Context/Redux)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error('Login failed:', error.response?.data || error.message);
+      alert('Login failed. Check credentials.');
+    }
   };
 
   return (
@@ -87,9 +105,8 @@ const LoginPage = () => {
               type="email"
               autoComplete="email"
               {...register('email')}
-              className={`appearance-none relative block w-full px-3 py-2 border ${
-                errors.email ? 'border-red-300' : 'border-gray-300'
-              } placeholder-gray-500 primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
+              className={`appearance-none relative block w-full px-3 py-2 border ${errors.email ? 'border-red-300' : 'border-gray-300'
+                } placeholder-gray-500 primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
               placeholder={text.form.email.placeholder}
             />
             {errors.email && (
@@ -111,9 +128,8 @@ const LoginPage = () => {
               type="password"
               autoComplete="current-password"
               {...register('password')}
-              className={`appearance-none relative block w-full px-3 py-2 border ${
-                errors.password ? 'border-red-300' : 'border-gray-300'
-              } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
+              className={`appearance-none relative block w-full px-3 py-2 border ${errors.password ? 'border-red-300' : 'border-gray-300'
+                } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
               placeholder={text.form.password.placeholder}
             />
             {errors.password && (
@@ -154,11 +170,10 @@ const LoginPage = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white  ${
-              isSubmitting
-                ? 'bg-[var(--primary-light)]'
-                : 'bg-[var(--primary)] hover:bg-[var(--primary-deep)] '
-            } focus:outline-none  transition-colors`}
+            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white  ${isSubmitting
+              ? 'bg-[var(--primary-light)]'
+              : 'bg-[var(--primary)] hover:bg-[var(--primary-deep)] '
+              } focus:outline-none  transition-colors`}
           >
             {isSubmitting ? (
               <>

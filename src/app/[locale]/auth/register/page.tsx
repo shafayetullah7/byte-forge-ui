@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
@@ -116,7 +117,19 @@ const RegisterPage = () => {
   } = useForm<RegisterFormValues>({ resolver: zodResolver(registerSchema) });
 
   const onSubmit = async (data: RegisterFormValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    try {
+      const response = await axios.post('http://localhost:3000/user/auth/register', data);
+      console.log('Registration successful:', response.data);
+      alert('success')
+      // Handle successful registration (e.g., redirect, show success message)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.log('Registration failed:', error?.response?.data || error.message);
+      // Handle error (e.g., show error message to user)
+      alert(error?.message || 'failed')
+    }
 
     console.log('✅ Valid data:', data);
     // Perform registration logic here
@@ -146,9 +159,8 @@ const RegisterPage = () => {
                 id="firstName"
                 type="text"
                 {...register('firstName')}
-                className={`appearance-none relative block w-full px-3 py-2 border ${
-                  errors.firstName ? 'border-red-300' : 'border-gray-300'
-                } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
+                className={`appearance-none relative block w-full px-3 py-2 border ${errors.firstName ? 'border-red-300' : 'border-gray-300'
+                  } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
                 placeholder={text.form.placeholders.firstName}
               />
               {errors.firstName && (
@@ -166,9 +178,8 @@ const RegisterPage = () => {
                 id="lastName"
                 type="text"
                 {...register('lastName')}
-                className={`appearance-none relative block w-full px-3 py-2 border ${
-                  errors.lastName ? 'border-red-300' : 'border-gray-300'
-                } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
+                className={`appearance-none relative block w-full px-3 py-2 border ${errors.lastName ? 'border-red-300' : 'border-gray-300'
+                  } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
                 placeholder={text.form.placeholders.lastName}
               />
               {errors.lastName && (
@@ -187,9 +198,8 @@ const RegisterPage = () => {
               id="userName"
               type="text"
               {...register('userName')}
-              className={`appearance-none relative block w-full px-3 py-2 border ${
-                errors.userName ? 'border-red-300' : 'border-gray-300'
-              } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
+              className={`appearance-none relative block w-full px-3 py-2 border ${errors.userName ? 'border-red-300' : 'border-gray-300'
+                } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
               placeholder={text.form.placeholders.username}
             />
             {errors.userName && (
@@ -207,9 +217,8 @@ const RegisterPage = () => {
               id="email"
               type="email"
               {...register('email')}
-              className={`appearance-none relative block w-full px-3 py-2 border ${
-                errors.email ? 'border-red-300' : 'border-gray-300'
-              } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
+              className={`appearance-none relative block w-full px-3 py-2 border ${errors.email ? 'border-red-300' : 'border-gray-300'
+                } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
               placeholder={text.form.placeholders.email}
             />
             {errors.email && (
@@ -227,9 +236,8 @@ const RegisterPage = () => {
               id="password"
               type="password"
               {...register('password')}
-              className={`appearance-none relative block w-full px-3 py-2 border ${
-                errors.password ? 'border-red-300' : 'border-gray-300'
-              } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
+              className={`appearance-none relative block w-full px-3 py-2 border ${errors.password ? 'border-red-300' : 'border-gray-300'
+                } primary-text-1 placeholder:primary-text-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm`}
               placeholder={text.form.placeholders.password}
             />
             {errors.password && (
@@ -271,11 +279,10 @@ const RegisterPage = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
-              isSubmitting
-                ? 'bg-[var(--primary-light)]'
-                : 'bg-[var(--primary)] hover:bg-[var(--primary-deep)] '
-            } focus:outline-none transition-colors`}
+            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${isSubmitting
+              ? 'bg-[var(--primary-light)]'
+              : 'bg-[var(--primary)] hover:bg-[var(--primary-deep)] '
+              } focus:outline-none transition-colors`}
           >
             {isSubmitting ? (
               <>
